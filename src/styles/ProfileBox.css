@@ -1,0 +1,23 @@
+.profileCard {
+    display: flex;
+    position: absolute;
+    top: 20px;
+    right: 50px;
+    width: 270px;
+    height: 300pxs;
+    padding: 10px;
+}
+
+
+.profilePic {
+    width: 50px;
+    height: 50px;
+    border: 1px solid var(--colorp2);
+    border-radius: 50%;
+}
+
+.profileName {
+    position: absolute;
+    left: 60px;
+    top: 5px;
+}
