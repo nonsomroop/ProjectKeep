@@ -1,6 +1,7 @@
 import React from 'react'
 import SideNav from '../components/SideNav'
 import { Box, Grid } from '@mui/material'
+import ProfileList from '../components/ProfileList';
 
 function ProfilePage() {
   return (
@@ -20,11 +21,8 @@ function ProfilePage() {
         <Grid item xs={28}>
           <h1 style={{ marginLeft: "20px"}}>Back</h1>
         </Grid>
-        {/* Box3 */}
-        <Grid item xs={18} sx={{ height: "100vh"}}>
-        </Grid>
-        {/* Box4 */}
-        <Grid item xs={10}>
+        <Grid item xs={27} sx={{ height: "50vh"}}>
+        <ProfileList />
         </Grid>
       </Grid>
     </Box>

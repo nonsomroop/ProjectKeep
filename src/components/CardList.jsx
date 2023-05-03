@@ -1,4 +1,4 @@
-import { Box, Card, CardContent, CardMedia } from "@mui/material";
+import { Box, Card, CardMedia } from "@mui/material";
 import React from "react";
 import profilePic from "../assets/profilePic.jpg";
 import "../styles/Card.css";
@@ -11,8 +11,8 @@ function CardList() {
     <Card>
       <CardMedia className="cardImg" image={profilePic} title="Card image" />
       <Box className="cardText">
-        <h1 className="cardTitle">{title}</h1>
-        <p className="cardDescr"> {desc}</p>
+        <h2 className="cardTitle">{title}</h2>
+        <p className="subp cardDescr"> {desc}</p>
       </Box>
       <Box>
         <Card

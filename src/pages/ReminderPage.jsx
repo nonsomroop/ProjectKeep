@@ -2,6 +2,8 @@ import React from 'react'
 import SideNav from '../components/SideNav'
 import { Box, Grid } from '@mui/material'
 import ProfileBox from '../components/ProfileBox'
+import ReminderList from '../components/ReminderList';
+import PastMemoryBox from '../components/PastMemoryBox';
 
 function ReminderPage() {
   return (
@@ -27,9 +29,11 @@ function ReminderPage() {
         </Grid>
         {/* Box3 */}
         <Grid item xs={18} sx={{ height: "100vh"}}>
+          <ReminderList />
         </Grid>
         {/* Box4 */}
         <Grid item xs={10}>
+          <PastMemoryBox />
         </Grid>
       </Grid>
     </Box>

@@ -90,7 +90,9 @@ const SearchBox = ({ onSearch }) => {
           <MenuItem value="Tag 3">Tag 3</MenuItem>
         </Select>
       </FormControl>
-      <Box display={"flex"} width={"80%"}>
+      <Box display={"flex"} width={"80%"} sx={{
+        flexDirection: {xs: "column", md: "row"}
+      }}>
         <TextField
           label="Start Date"
           type="date"
@@ -110,7 +112,7 @@ const SearchBox = ({ onSearch }) => {
           value={endDate}
           // onChange={(event) => setEndDate(event.target.value)}
           margin="dense"
-          sx={{ ml: 2 }}
+          sx={{ ml: {xs: "0", md: "4%"}}}
           InputLabelProps={{
             shrink: true,
             placeholder: "",
