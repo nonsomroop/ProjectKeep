@@ -1,0 +1,17 @@
+.settingBoxClass {
+    background-color: var(--colorp3);
+    width: 85%;
+    border-radius: 10px;
+    border: 1px solid var(--colorp2);
+    margin-left: 2.5%;
+    margin-top: 3.6%;
+}
+
+.profileSettingBox {
+    background-color: var(--colorp3);
+    width: 95%;
+    border-radius: 10px;
+    border: 1px solid var(--colorp2);
+    margin-left: 2.5%;
+    margin-top: 2%; 
+}
