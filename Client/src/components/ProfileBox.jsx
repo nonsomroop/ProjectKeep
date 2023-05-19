@@ -1,8 +1,4 @@
-import {
-  Box,
-  Card,
-  CardMedia,
-} from "@mui/material";
+import { Box, Card, CardMedia } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/ProfileBox.css";
@@ -18,18 +14,22 @@ function ProfileBox() {
     <Card
       className="profileCard"
       onClick={handleClick}
-      sx={{ display: { xs: "none", md: "block" }, alignItems: "center"}}
+      sx={{
+        display: { xs: "none", md: "block" },
+        alignItems: "center",
+        cursor: "pointer",
+      }}
     >
       <Box height={"100%"} display={"flex"} alignItems={"center"}>
-      <CardMedia
-        className="profilePic"
-        image={profilePic}
-        title="Profile picture"
-        sx={{marginLeft: "4px", marginRight: "20px"}}
-      />
-      <Box>
-        <h2 style={{padding: "0"}}>{username}</h2>
-      </Box>
+        <CardMedia
+          className="profilePic"
+          image={profilePic}
+          title="Profile picture"
+          sx={{ marginLeft: "4px", marginRight: "20px" }}
+        />
+        <Box>
+          <h2 style={{ padding: "0" }}>{username}</h2>
+        </Box>
       </Box>
     </Card>
   );

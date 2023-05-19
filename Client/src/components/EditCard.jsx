@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Chip,
   FormControl,
   Grid,
@@ -7,8 +8,11 @@ import {
   Select,
   TextField,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/ShowList.css";
+import ImageUploadBox from "./ImageUploadBox";
+import Axios from "../AxiosInstance";
+import Cookies from "js-cookie";
 
 function EditCard() {
   const [title, setTitle] = useState("");
@@ -19,7 +23,43 @@ function EditCard() {
   const [categories, setCategories] = useState([]);
   const [inputTagValue, setInputTagValue] = useState("");
   const [inputCategoryValue, setInputCategoryValue] = useState("");
+  const [createDate, setCreateDate] = useState("");
   const [selectedPriority, setSelectedPriority] = useState("");
+  const [reminder, setReminder] = useState("");
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const noteData = {
+      title: title,
+      description: description,
+      latitude: latitude,
+      longitude: longitude,
+      tags: tags,
+      categories: categories,
+      createDate: createDate,
+      selectedPriority: selectedPriority,
+      reminder: reminder,
+    };
+
+    try {
+      const token = Cookies.get("user"); // Retrieve the token from the cookie
+      const response = await Axios.post(
+        "http://localhost:3000/create-note",
+        noteData,
+        // {
+        //   headers: {
+        //     Authorization: `Bearer ${token}`, // Include the token in the request headers
+        //   },
+        // }
+      );
+      // Handle the response
+      console.log("Note created:", response.data);
+    } catch (error) {
+      // Handle errors
+      console.error("Error creating note:", error);
+    }
+  };
 
   const handleInputTagChange = (event) => {
     setInputTagValue(event.target.value);
@@ -58,7 +98,7 @@ function EditCard() {
   };
 
   return (
-    <Box className="searchListBox">
+    <Box className="searchListBox" height={"auto"} pb={"25px"}>
       <Box display={"flex"} ml={"3%"} mt={"20px"}>
         <TextField
           id="standard-basic"
@@ -71,20 +111,27 @@ function EditCard() {
               height: "60px",
             },
           }}
+          required
           onChange={(e) => setTitle(e.target.value)}
           sx={{ width: "97%" }}
         ></TextField>
       </Box>
       <hr style={{ width: "94%" }} />
       <Grid container>
-        <Grid item xs={6} ml={"4%"}>
+        <Grid
+          item
+          xs={12}
+          md={6}
+          ml={"4%"}
+          mr={"4%"}
+          sx={{ order: { xs: "2", md: "1" } }}
+        >
           <Grid container>
             <Grid item xs={12} display={"flex"} mt={"15px"}>
               <Box
                 sx={{
                   width: "120px",
-                  margin: "6px 20px 0 0",
-                  bgcolor: "red",
+                  margin: "7px 20px 0 0",
                 }}
               >
                 <h4 style={{ margin: "6px 20px 0 0" }}>Description</h4>
@@ -107,7 +154,6 @@ function EditCard() {
               <Box
                 sx={{
                   width: "150px",
-                  bgcolor: "blue",
                 }}
               >
                 <h4 style={{ margin: "6px 20px 0 0" }}>Tags</h4>
@@ -127,7 +173,7 @@ function EditCard() {
               />
             </Grid>
             <Grid item xs={12}>
-              <Box mt={"10px"} sx={{ height: "20px" }}>
+              <Box mt={"5px"} mb={"5px"}>
                 {tags.map((tag, index) => (
                   <Chip
                     key={index}
@@ -147,11 +193,10 @@ function EditCard() {
                 ))}
               </Box>
             </Grid>
-            <Grid item xs={12} display={"flex"} mt={"15px"}>
+            <Grid item xs={12} display={"flex"} mt={"5px"}>
               <Box
                 sx={{
                   width: "120px",
-                  bgcolor: "pink",
                 }}
               >
                 <h4 style={{ margin: "6px 20px 0 0" }}>Categories</h4>
@@ -171,7 +216,7 @@ function EditCard() {
               />
             </Grid>
             <Grid item xs={12}>
-              <Box mt={"10px"} sx={{ height: "20px" }}>
+              <Box mt={"5px"} mb={"5px"}>
                 {categories.map((category, index) => (
                   <Chip
                     key={index}
@@ -192,7 +237,14 @@ function EditCard() {
               </Box>
             </Grid>
             <Grid container>
-              <Grid item xs={6} display={"flex"} mt={"15px"}>
+              <Grid
+                item
+                xs={12}
+                md={6}
+                display={"flex"}
+                mt={"6px"}
+                sx={{ pr: { xs: "0%", md: "4%" } }}
+              >
                 <h4
                   style={{
                     margin: "6px 20px 0 0",
@@ -203,6 +255,7 @@ function EditCard() {
                 <TextField
                   id="standard-basic"
                   fullWidth
+                  onClick={(e) => setLatitude(e.target.value)}
                   InputProps={{
                     style: {
                       fontSize: "16px",
@@ -212,7 +265,13 @@ function EditCard() {
                 ></TextField>
               </Grid>
 
-              <Grid item xs={6} display={"flex"} mt={"15px"}>
+              <Grid
+                item
+                xs={12}
+                md={6}
+                display={"flex"}
+                sx={{ mt: { xs: "12px", md: "5px" } }}
+              >
                 <h4
                   style={{
                     margin: "6px 20px 0 0",
@@ -223,6 +282,7 @@ function EditCard() {
                 <TextField
                   id="standard-basic"
                   fullWidth
+                  onClick={(e) => setLongitude(e.target.value)}
                   InputProps={{
                     style: {
                       fontSize: "16px",
@@ -233,7 +293,34 @@ function EditCard() {
               </Grid>
             </Grid>
             <Grid container>
-              <Grid item xs={6} display={"flex"} mt={"15px"}>
+              <Grid
+                item
+                xs={6}
+                display={"flex"}
+                mt={"12px"}
+                sx={{ pr: { xs: "0%", md: "4%" } }}
+              >
+                <h4
+                  style={{
+                    margin: "6px 20px 0 0",
+                  }}
+                >
+                  Date
+                </h4>
+                <TextField
+                  id="standard-basic"
+                  fullWidth
+                  type="date"
+                  sx={{ pr: { xs: "16px", md: "0px" } }}
+                  InputProps={{
+                    style: {
+                      fontSize: "16px",
+                      height: "35px",
+                    },
+                  }}
+                ></TextField>
+              </Grid>
+              <Grid item xs={6} display={"flex"} mt={"12px"}>
                 <h4
                   style={{
                     margin: "6px 20px 0 0",
@@ -255,33 +342,74 @@ function EditCard() {
                   </Select>
                 </FormControl>
               </Grid>
-
-              <Grid item xs={6} display={"flex"} mt={"15px"}>
-                <h4
-                  style={{
-                    margin: "6px 20px 0 0",
-                  }}
-                >
-                  Date
-                </h4>
-                <TextField
-                  id="standard-basic"
-                  fullWidth
-                  type="date"
-                  InputProps={{
-                    style: {
-                      fontSize: "16px",
-                      height: "35px",
-                    },
-                  }}
-                ></TextField>
-              </Grid>
+              <Grid item xs={12}></Grid>
             </Grid>
           </Grid>
         </Grid>
-        <Grid item xs={6}></Grid>
+        <Grid
+          item
+          xs={12}
+          md={5}
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            order: { xs: "1", md: "2" },
+          }}
+        >
+          <ImageUploadBox />
+        </Grid>
       </Grid>
-      <Box className="tagInput"></Box>
+      <Box className="details" mt={"40px"} ml={"4%"} mr={"4%"}>
+        <h4
+          style={{
+            margin: "6px 20px 0 0",
+          }}
+        >
+          Details
+        </h4>
+        <TextField fullWidth multiline rows={3}></TextField>
+      </Box>
+      <Box display={"flex"} justifyContent={"flex-end"} mt={"20px"} mr={"3%"}>
+        <h4
+          style={{
+            margin: "6px 20px 0 0",
+          }}
+        >
+          Set Reminder
+        </h4>
+        <TextField
+          id="standard-basic"
+          type="date"
+          onChange={(e) => setReminder(e.target.value)}
+          InputProps={{
+            style: {
+              fontSize: "16px",
+              height: "35px",
+            },
+          }}
+        ></TextField>
+        <Button
+          variant="contained"
+          onClick={handleSubmit}
+          sx={{
+            fontSize: "16px",
+            width: "120px",
+            height: "35px",
+            marginBottom: "0px",
+            bgcolor: "var(--colorp1)",
+            color: "var(--colorp3)",
+            textTransform: "capitalize",
+            marginLeft: "20px",
+            "&:active , &:hover": {
+              bgcolor: "var(--colorp1)",
+              color: "var(--colorp3)",
+            },
+          }}
+        >
+          Saved
+        </Button>
+      </Box>
     </Box>
   );
 }
