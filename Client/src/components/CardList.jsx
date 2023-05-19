@@ -1,20 +1,27 @@
 import { Box, Card, CardMedia } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import profilePic from "../assets/profilePic.jpg";
 import "../styles/Card.css";
 
-function CardList() {
-  const title = "Title";
-  const desc =
-    "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatem, reiciendis! Laudantium, ea beatae quibusdam explicabo libero recusandae non! Dolore non officia debitis esse unde nihil eveniet rerum odio ullam laudantium.";
+function CardList({ data }) {
+  const [title, setTitle] = useState(data.title);
+  const [desc, setDesc] = useState(data.description);
+  const navigate = useNavigate();
   return (
-    <Card>
-      <Box className="picture" sx={{display: "flex", justifyContent: "center" }}>
+    <Card
+      onClick={() => navigate(`/note/${data.id}`)}
+      sx={{ cursor: "pointer" }}
+    >
+      <Box
+        className="picture"
+        sx={{ display: "flex", justifyContent: "center" }}
+      >
         <CardMedia className="cardImg" image={profilePic} title="Card image" />
       </Box>
       <Box className="cardText">
         <h2 className="cardTitle">{title}</h2>
-        <p className="subp cardDescr"> {desc}</p>
+        <p className="subp cardDescr">{desc}</p>
       </Box>
       <Box>
         <Card

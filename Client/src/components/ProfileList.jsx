@@ -1,9 +1,30 @@
 import { Box, Button, Container, Grid } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/Profile.css";
 import profilePic from "../assets/gaby.jpg";
+import Axios from "../AxiosInstance";
 function ProfileList() {
-  const name = "Natthanon Somroop";
+  const [userData, setUserData] = useState({});
+  const [name, setName] = useState("");
+  // const [bio, setBio] = useState();
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    Axios.get("/showprofile")
+      .then((res) => {
+        console.log(res.data.data);
+        setUserData(res.data.data);
+        setName(res.data.data.username); 
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  // const name = "Natthanon Somroop";
   const bio =
     "Life is a journey, not a destination. Enjoy the ride and cherish every moment.";
   const aboutme =

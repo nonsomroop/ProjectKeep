@@ -4,8 +4,6 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 
-const createNoteRouter = require("./routes/notes/create_note");
-
 const connection = mysql.createConnection({
   host: "server2.bsthun.com",
   port: "6105",
@@ -41,8 +39,11 @@ app.post("/register", require("./routes/auth/endpoint_register"));
 app.get("/check", require("./routes/auth/endpoint_check_login"));
 
 // Use the createNoteRouter for the /create-note endpoint
-app.use("/create-note", createNoteRouter);
+app.use("/create-note", require("./routes/notes/create_note"));
+app.get("/shownote", require("./routes/notes/show_note"))
 
+//profile
+app.get("/showprofile", require("./routes/profile/show_profile"))
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
 });

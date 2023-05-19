@@ -2,9 +2,9 @@ const express = require("express");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
 
-router.get("/shownote", (req, res) => {
-  const token = req.cookies.user; // Assuming the JWT token is stored in a cookie
-  const jwtSecret = "ZJGX1QL7ri6BGJWj3t"; // Your JWT secret
+router.get("/showprofile", (req, res) => {
+  const token = req.cookies.user;
+  const jwtSecret = "ZJGX1QL7ri6BGJWj3t";
 
   let userId;
   try {
@@ -18,19 +18,31 @@ router.get("/shownote", (req, res) => {
       error: "Unauthorized: Invalid token.",
     });
   }
-  const sqlSelect = "SELECT * FROM notes WHERE user_id = ?";
+
+  const sqlSelect = "SELECT first_name, last_name, profilePic, email, username FROM users WHERE id = ?";
   connection.query(sqlSelect, [userId], (err, results) => {
     if (err) {
-      res.json({
+      return res.status(500).json({
         success: false,
         data: null,
         error: err.message,
       });
-    } else {
-      return res.json(results);
     }
+
+    if (results.length === 0) {
+      return res.status(404).json({
+        success: false,
+        data: null,
+        error: "User not found.",
+      });
+    }
+
+    const user = results[0];
+    return res.json({
+      success: true,
+      data: user,
+    });
   });
 });
 
 module.exports = router;
-

@@ -1,11 +1,30 @@
 import { Box, Card, CardMedia } from "@mui/material";
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/ProfileBox.css";
 import profilePic from "../assets/profilePic.jpg";
+import Axios from "../AxiosInstance";
 
 function ProfileBox() {
-  const username = "NatthanonS";
+  // const username = "NatthanonS";
+  const [username, setUserame] = useState("");
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    Axios.get("/showprofile")
+      .then((res) => {
+        console.log(res.data.data);
+        setUserame(res.data.data.username);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+
   let navigate = useNavigate();
   function handleClick() {
     navigate("/Profile");

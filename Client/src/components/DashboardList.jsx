@@ -1,12 +1,28 @@
 import { Box, Button, Container, Grid } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/DashboardList.css";
 import CardList from "./CardList";
 import { useNavigate } from "react-router-dom";
+import Axios from "../AxiosInstance";
 
 function DashboardList({ handleSearch }) {
-
   const navigate = useNavigate();
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    Axios.get("/shownote")
+      .then((res) => {
+        console.log(res.data);
+        setData(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <div className="page-container">
@@ -45,8 +61,11 @@ function DashboardList({ handleSearch }) {
             marginBottom: "30px",
           }}
         >
-          <Grid item xs={6} md={3}></Grid>
-            
+          {data.map((item) => (
+            <Grid item xs={6} md={3} key={item.id}>
+              <CardList data={item} />
+            </Grid>
+          ))}
         </Grid>
       </Box>
     </div>
