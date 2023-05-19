@@ -8,13 +8,14 @@ import {
   Select,
   TextField,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "../styles/ShowList.css";
 import ImageUploadBox from "./ImageUploadBox";
 import Axios from "../AxiosInstance";
-import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
 
-function EditCard() {
+
+function CreateCard() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [latitude, setLatitude] = useState("");
@@ -26,6 +27,8 @@ function EditCard() {
   const [createDate, setCreateDate] = useState("");
   const [selectedPriority, setSelectedPriority] = useState("");
   const [reminder, setReminder] = useState("");
+  const [detail, setDetail] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -40,23 +43,21 @@ function EditCard() {
       createDate: createDate,
       selectedPriority: selectedPriority,
       reminder: reminder,
+      detail: detail,
     };
+    console.log(noteData)
 
     try {
-      const token = Cookies.get("user"); // Retrieve the token from the cookie
       const response = await Axios.post(
-        "http://localhost:3000/create-note",
-        noteData,
-        // {
-        //   headers: {
-        //     Authorization: `Bearer ${token}`, // Include the token in the request headers
-        //   },
-        // }
+        "/create-note",
+        noteData
       );
       // Handle the response
       console.log("Note created:", response.data);
+      navigate("/dashboard");
     } catch (error) {
       // Handle errors
+      console.log("hHelloo")
       console.error("Error creating note:", error);
     }
   };
@@ -318,6 +319,7 @@ function EditCard() {
                       height: "35px",
                     },
                   }}
+                  onChange={(e) => setCreateDate(e.target.value)}
                 ></TextField>
               </Grid>
               <Grid item xs={6} display={"flex"} mt={"12px"}>
@@ -338,7 +340,7 @@ function EditCard() {
                   >
                     <MenuItem value="low">Low</MenuItem>
                     <MenuItem value="mid">Mid</MenuItem>
-                    <MenuItem value="height">Height</MenuItem>
+                    <MenuItem value="high">High</MenuItem>
                   </Select>
                 </FormControl>
               </Grid>
@@ -368,7 +370,7 @@ function EditCard() {
         >
           Details
         </h4>
-        <TextField fullWidth multiline rows={3}></TextField>
+        <TextField fullWidth multiline rows={3} onChange={(e) => setDetail(e.target.value)}></TextField>
       </Box>
       <Box display={"flex"} justifyContent={"flex-end"} mt={"20px"} mr={"3%"}>
         <h4
@@ -414,4 +416,4 @@ function EditCard() {
   );
 }
 
-export default EditCard;
+export default CreateCard;

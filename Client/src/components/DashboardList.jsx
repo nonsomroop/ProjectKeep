@@ -18,7 +18,7 @@ function DashboardList({ handleSearch }) {
         <Button
           variant="contained"
           className="listButton"
-          onClick={() => navigate("/Edit")}
+          onClick={() => navigate("/Create")}
           sx={{
             fontSize: "20px",
             height: { xs: "40px", sm: "60px" },
@@ -45,30 +45,8 @@ function DashboardList({ handleSearch }) {
             marginBottom: "30px",
           }}
         >
-          <Grid item xs={6} md={3}>
-            <CardList />
-          </Grid>
-          <Grid item xs={6} md={3}>
-            <CardList />
-          </Grid>
-          <Grid item xs={6} md={3}>
-            <CardList />
-          </Grid>
-          <Grid item xs={6} md={3}>
-            <CardList />
-          </Grid>
-          <Grid item xs={6} md={3}>
-            <CardList />
-          </Grid>
-          <Grid item xs={6} md={3}>
-            <CardList />
-          </Grid>
-          <Grid item xs={6} md={3}>
-            <CardList />
-          </Grid>
-          <Grid item xs={6} md={3}>
-            <CardList />
-          </Grid>
+          <Grid item xs={6} md={3}></Grid>
+            
         </Grid>
       </Box>
     </div>

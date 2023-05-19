@@ -3,9 +3,9 @@ import React from 'react'
 import SideNav from '../components/SideNav'
 import ShowList from '../components/ShowList'
 import ProfileBox from '../components/ProfileBox'
-import EditCard from '../components/EditCard'
+import CreateCard from '../components/CreateCard'
 
-function EditNodePage() {
+function CreateNotePage() {
   return (
     <Box sx={{ display: "flex" }}>
       <Box sx={{ height: "20vh" }}></Box>
@@ -29,11 +29,11 @@ function EditNodePage() {
         </Grid>
         {/* Box3 */}
         <Grid item xs={27} sx={{ height: "80vh" }}>
-          <EditCard />
+          <CreateCard />
         </Grid>
       </Grid>
     </Box>
   )
 }
 
-export default EditNodePage
+export default CreateNotePage

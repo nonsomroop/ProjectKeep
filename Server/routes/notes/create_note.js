@@ -28,9 +28,9 @@ router.post("/", (req, res) => {
   const createDate = req.body.createDate;
   const priority = req.body.selectedPriority;
   const reminder = req.body.reminder;
+  const content = req.body.detail;
   const tags = req.body.tags; // Array of tags
   const categories = req.body.categories; // Array of categories
-
   // Establish the connection
   const connection = global.connection;
 
@@ -60,7 +60,7 @@ router.post("/", (req, res) => {
             const insertedCategoryId = categoryResult.insertId;
   
             // Insert the note into the 'notes' table
-            const insertNoteQuery = `INSERT INTO notes (user_id, title, description, latitude, longitude, created_at, priority, reminder) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+            const insertNoteQuery = `INSERT INTO notes (user_id, title, description, latitude, longitude, created_at, priority, reminder, content) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
             const noteValues = [
               userId,
               title,
@@ -70,6 +70,7 @@ router.post("/", (req, res) => {
               createDate,
               priority,
               reminder,
+              content,
             ];
   
             connection.query(insertNoteQuery, noteValues, (err, noteResult) => {
@@ -111,7 +112,7 @@ router.post("/", (req, res) => {
                       error: "An error occurred while creating the note.",
                     });
                   }
-  
+                  
                   // Handle the success case
                   res.status(200).json({
                     success: true,
