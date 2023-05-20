@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import React from "react";
 import LoginFrom from "../components/LoginForm";
-function LoginPage() {
+function LoginPage({onLogin}) {
   return (
     <Box
       sx={{
@@ -12,7 +12,7 @@ function LoginPage() {
         alignItems: "center"
       }}
     >
-      <LoginFrom />
+      <LoginFrom onLogin={onLogin} />
     </Box>
   );
 }

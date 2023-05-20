@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { AxiosError } from "axios";
 import Axios from "../AxiosInstance";
 
-function LoginForm() {
+function LoginForm({onLogin}) {
   const [usernameOrEmail, setUsernameOrEmail] = useState("");
   const [password, setPassword] = useState("");
   const [usernameOrEmailError, setUsernameOrEmailError] = useState("");
@@ -20,10 +20,10 @@ function LoginForm() {
         password,
       });
       if (response.data.success) {
-        // localStorage.setItem("token", response.data.token);
-        // localStorage.setItem("userId", response.data.user.id);
         console.log("success");
-        navigate("/");
+        // window.location.reload();
+        // navigate("/");
+        onLogin();
       } else {
         setUsernameOrEmail("");
         setPassword("");
