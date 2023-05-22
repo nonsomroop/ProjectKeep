@@ -8,14 +8,13 @@ import {
   Select,
   TextField,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/ShowList.css";
 import ImageUploadBox from "./ImageUploadBox";
 import Axios from "../AxiosInstance";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-
-function CreateCard() {
+function EditCard() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [latitude, setLatitude] = useState("");
@@ -25,10 +24,12 @@ function CreateCard() {
   const [inputTagValue, setInputTagValue] = useState("");
   const [inputCategoryValue, setInputCategoryValue] = useState("");
   const [createDate, setCreateDate] = useState("");
-  const [selectedPriority, setSelectedPriority] = useState("Low");
+  const [selectedPriority, setSelectedPriority] = useState("low");
   const [reminder, setReminder] = useState("");
   const [detail, setDetail] = useState("");
   const [titleError, setTitleError] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+  const { noteid } = useParams();
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
@@ -43,14 +44,13 @@ function CreateCard() {
       longitude: longitude,
       tags: tags,
       categories: categories,
-      createDate: createDate,
+      createDate: createDate.substring(0, 10),
       selectedPriority: selectedPriority,
-      reminder: reminder,
+      reminder: reminder.substring(0, 10),
       detail: detail,
     };
     console.log(noteData);
-  
-  
+
     try {
       const response = await Axios.post("/create-note", noteData);
       console.log("Note created:", response.data);
@@ -61,8 +61,45 @@ function CreateCard() {
       console.error("Error creating note:", error);
     }
   };
-  
 
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const fetchData = async () => {
+    console.log(noteid);
+    Axios.get("/notedetail", { params: { noteid: noteid } })
+      .then((res) => {
+        console.log(res.data[0]);
+        let temp = res.data[0];
+        setTitle(temp.title);
+        setDescription(temp.description);
+        setLatitude(temp.latitude);
+        setLongitude(temp.longitude);
+        setCreateDate(temp.created_at);
+        setSelectedPriority(temp.priority);
+        setDetail(temp.content);
+        setReminder(temp.reminder);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  if (isLoading) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100%F",
+        }}
+      >
+        Loading...
+      </div>
+    );
+  }
   const handleInputTagChange = (event) => {
     setInputTagValue(event.target.value);
   };
@@ -106,6 +143,7 @@ function CreateCard() {
           id="standard-basic"
           variant="outlined"
           placeholder="Untitle"
+          value={title}
           InputProps={{
             style: {
               fontSize: "40px",
@@ -141,6 +179,7 @@ function CreateCard() {
               </Box>
               <TextField
                 id="standard-basic"
+                value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 fullWidth
                 multiline
@@ -256,6 +295,7 @@ function CreateCard() {
                   Latitude
                 </h4>
                 <TextField
+                  value={latitude}
                   id="standard-basic"
                   fullWidth
                   onChange={(e) => setLatitude(e.target.value)}
@@ -283,6 +323,7 @@ function CreateCard() {
                   Longitude
                 </h4>
                 <TextField
+                  value={longitude}
                   id="standard-basic"
                   fullWidth
                   onChange={(e) => setLongitude(e.target.value)}
@@ -311,6 +352,7 @@ function CreateCard() {
                   Date
                 </h4>
                 <TextField
+                //   value={createDate.substring(0, 10)}
                   id="standard-basic"
                   fullWidth
                   type="date"
@@ -372,7 +414,13 @@ function CreateCard() {
         >
           Details
         </h4>
-        <TextField fullWidth multiline rows={3} onChange={(e) => setDetail(e.target.value)}></TextField>
+        <TextField
+          value={detail}
+          fullWidth
+          multiline
+          rows={3}
+          onChange={(e) => setDetail(e.target.value)}
+        ></TextField>
       </Box>
       <Box display={"flex"} justifyContent={"flex-end"} mt={"20px"} mr={"3%"}>
         <h4
@@ -383,6 +431,7 @@ function CreateCard() {
           Set Reminder
         </h4>
         <TextField
+        //   value={reminder.substring(0, 10)}
           id="standard-basic"
           type="date"
           onChange={(e) => setReminder(e.target.value)}
@@ -418,4 +467,4 @@ function CreateCard() {
   );
 }
 
-export default CreateCard;
+export default EditCard;

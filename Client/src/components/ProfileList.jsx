@@ -3,10 +3,12 @@ import React, { useEffect, useState } from "react";
 import "../styles/Profile.css";
 import profilePic from "../assets/gaby.jpg";
 import Axios from "../AxiosInstance";
+import { useNavigate } from "react-router-dom";
+
 function ProfileList() {
   const [userData, setUserData] = useState({});
   const [name, setName] = useState("");
-  // const [bio, setBio] = useState();
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchData();
@@ -90,6 +92,7 @@ function ProfileList() {
           <Box display="flex" justifyContent="flex-end">
             <Button
               variant="contained"
+              onClick={() => navigate("/Signout")}
               sx={{
                 fontSize: "15px",
                 height: "35px",
@@ -99,12 +102,12 @@ function ProfileList() {
                 color: "var(--colorp1)",
                 textTransform: "capitalize",
                 "&:hover":{
-                  bgcolor: "var(--colorp2)",
+                  bgcolor: "var(--colorp3)",
                   color: "var(--colorp1)",
                 },
                 "&:active":{
-                  bgcolor: "var(--colorp1)",
-                  color: "var(--colorp3)",
+                  bgcolor: "var(--colorp3)",
+                  color: "var(--colorp1)",
                 },
               }}
             >

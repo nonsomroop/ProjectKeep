@@ -7,6 +7,8 @@ import "../styles/Card.css";
 function CardList({ data }) {
   const [title, setTitle] = useState(data.title);
   const [desc, setDesc] = useState(data.description);
+  const [priority, setPriority] = useState(data.priority);
+
   const navigate = useNavigate();
   return (
     <Card
@@ -28,7 +30,7 @@ function CardList({ data }) {
           className="priority"
           sx={{ float: "right", marginRight: "20px", marginBottom: "20px" }}
         >
-          <h4 style={{ margin: "0", padding: "10px" }}>Mid</h4>
+          <h4 style={{ margin: "0", padding: "10px" }}>{priority}</h4>
         </Card>
       </Box>
     </Card>

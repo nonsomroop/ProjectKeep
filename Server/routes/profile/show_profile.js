@@ -5,7 +5,14 @@ const jwt = require("jsonwebtoken");
 router.get("/showprofile", (req, res) => {
   const token = req.cookies.user;
   const jwtSecret = "ZJGX1QL7ri6BGJWj3t";
-
+  
+  if (!token) {
+    res.json({
+      success: false,
+      message: "Please login again",
+    });
+    return;
+  }
   let userId;
   try {
     const decoded = jwt.verify(token, jwtSecret);

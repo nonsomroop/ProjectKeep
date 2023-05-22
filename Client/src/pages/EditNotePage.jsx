@@ -1,13 +1,13 @@
 import { Box, Grid } from "@mui/material";
 import React from "react";
 import SideNav from "../components/SideNav";
-import ShowList from "../components/ShowList";
 import ProfileBox from "../components/ProfileBox";
 import CreateCard from "../components/CreateCard";
 import { useNavigate } from "react-router-dom";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import EditCard from "../components/EditCard";
 
-function CreateNotePage() {
+function EditNotePage() {
   const navigate = useNavigate();
 
   return (
@@ -45,11 +45,11 @@ function CreateNotePage() {
         </Grid>
         {/* Box3 */}
         <Grid item xs={27} sx={{ height: "80vh" }}>
-          <CreateCard />
+          <EditCard />
         </Grid>
       </Grid>
     </Box>
   );
 }
 
-export default CreateNotePage;
+export default EditNotePage;

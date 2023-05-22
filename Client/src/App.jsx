@@ -11,10 +11,11 @@ import ThemePage from "./pages/ThemePage";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import CreateNotePage from "./pages/CreateNotePage";
-import ShowNote from "./pages/ShowNote";
 import { useEffect, useState } from "react";
 import Axios from "./AxiosInstance";
 import SignoutPage from "./pages/SignoutPage";
+import ShowNotePage from "./pages/ShowNotePage";
+import EditNotePage from "./pages/EditNotePage";
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
@@ -58,7 +59,8 @@ function App() {
           <Route path="/Profile" element={<ProfilePage />} />
           <Route path="/Setting/Theme" element={<ThemePage />} />
           <Route path="/Create" element={<CreateNotePage />} />
-          <Route path="/note/:noteid" element={<ShowNote />} />
+          <Route path="/Edit/:noteid" element={<EditNotePage />} />
+          <Route path="/Note/:noteid" element={<ShowNotePage />} />
           <Route path="/Signout" element={<SignoutPage />} />
           <Route exect path="/Login" element={<Navigate to={"/"} replace />} />
           <Route path="/Register" element={<Navigate to={"/"} replace />} />

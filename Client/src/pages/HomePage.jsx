@@ -2,35 +2,36 @@ import React from "react";
 import SideNav from "../components/SideNav";
 import { Box, Grid } from "@mui/material";
 import ProfileBox from "../components/ProfileBox";
+import "../styles/ShowList.css";
+import image from "../assets/mempic.jpg";
+import logo from "../assets/logowhite.svg";
 
 function HomePage() {
   return (
-    <Box sx={{ display: "flex" }}>
-      <Box sx={{ height: "" }}></Box>
-      {/* Sidebar */}
-      <Box sx={{ width: { sm: "100px", md: "280px" } }}>
-        <SideNav />
-      </Box>
-      
-      <Grid
-        container
-        columns={28}
-        sx={{ marginTop: { xs: "50px", sm: "0px" } }}
+    <Box
+      sx={{
+        display: "flex",
+        backgroundImage: `url(${image})`,
+        width: "100vw",
+        height: "100vh",
+      }}
+    >
+      <SideNav />
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          width: { xs: "100%", sm: "calc(100% - 232px)" },
+          marginLeft: { xs: "0px", sm: "232px" },
+        }}
       >
-        {/* Box1 */}
-        <Grid item xs={20}>
-        </Grid>
-        {/* Box2 */}
-        <Grid item xs={8}>
-          <ProfileBox />
-        </Grid>
-        {/* Box3 */}
-        <Grid item xs={18} sx={{ height: "100vh"}}>
-        </Grid>
-        {/* Box4 */}
-        <Grid item xs={10}>
-        </Grid>
-      </Grid>
+        <img
+          src={logo}
+          width={"35%"}
+          style={{ filter: "drop-shadow(0 0.5rem 1rem rgba(0, 0, 0, 0.15))" }}
+        />
+      </Box>
     </Box>
   );
 }

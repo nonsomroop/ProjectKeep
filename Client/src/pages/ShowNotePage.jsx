@@ -3,11 +3,11 @@ import React from "react";
 import SideNav from "../components/SideNav";
 import ShowList from "../components/ShowList";
 import ProfileBox from "../components/ProfileBox";
-import CreateCard from "../components/CreateCard";
 import { useNavigate } from "react-router-dom";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import ShowNote from "../components/ShowNote";
 
-function CreateNotePage() {
+function ShowNotePage() {
   const navigate = useNavigate();
 
   return (
@@ -31,11 +31,11 @@ function CreateNotePage() {
               display: "flex",
               alignitems: "center",
               cursor: "pointer",
-              width: "100px"
+              width: "100px",
             }}
             onClick={() => navigate(-1)}
           >
-            <ArrowBackIosIcon sx={{marginTop: "26px"}} />
+            <ArrowBackIosIcon sx={{ marginTop: "26px" }} />
             <h1>Back</h1>
           </Box>
         </Grid>
@@ -45,11 +45,11 @@ function CreateNotePage() {
         </Grid>
         {/* Box3 */}
         <Grid item xs={27} sx={{ height: "80vh" }}>
-          <CreateCard />
+          <ShowNote />
         </Grid>
       </Grid>
     </Box>
   );
 }
 
-export default CreateNotePage;
+export default ShowNotePage;

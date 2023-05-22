@@ -16,7 +16,7 @@ function SignoutPage() {
         container
         columns={28}
         sx={{ marginTop: { xs: "50px", sm: "0px" } }}
-      >
+      > 
         {/* Box1 */}
         <Grid item xs={20}>
           <h1 style={{ marginLeft: "20px" }}>Setting</h1>

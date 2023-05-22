@@ -4,7 +4,7 @@ import { Box, Grid } from '@mui/material';
 import SettingBox from '../components/SettingBox';
 import ThemeBox from '../components/ThemeBox';
 
-function ThemePage() {
+function ThemePage( ) {
   return (
     <Box sx={{ display: "flex" }}>
       <Box sx={{ height: "" }}></Box>
@@ -27,7 +27,7 @@ function ThemePage() {
         </Grid>
         {/* Box3 */}
         <Grid item xs={18} sx={{ height: "100vh" }}>
-          <ThemeBox />
+          <ThemeBox  />
         </Grid>
         {/* Box4 */}
         <Grid item xs={10}>

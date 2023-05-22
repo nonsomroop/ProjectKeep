@@ -41,7 +41,7 @@ app.get("/check", require("./routes/auth/endpoint_check_login"));
 // Use the createNoteRouter for the /create-note endpoint
 app.use("/create-note", require("./routes/notes/create_note"));
 app.get("/shownote", require("./routes/notes/show_note"))
-
+app.get("/notedetail", require("./routes/notes/note_detail"));
 //profile
 app.get("/showprofile", require("./routes/profile/show_profile"))
 app.listen(port, () => {

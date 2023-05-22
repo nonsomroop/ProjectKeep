@@ -5,8 +5,8 @@ import ProfileBox from "../components/ProfileBox";
 import DashboardList from "../components/DashboardList";
 import SearchBox from "../components/SeachBox";
 
-
 function DashBoardPage() {
+
   return (
     <Box sx={{ display: "flex" }}>
       <Box sx={{ height: "" }}></Box>

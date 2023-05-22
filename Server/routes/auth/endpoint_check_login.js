@@ -11,17 +11,25 @@ module.exports = (req, res) => {
     });
     return;
   }
-  var decoded = jwt.verify(token, "ZJGX1QL7ri6BGJWj3t");
 
-  if (decoded) {
+  try {
+    var decoded = jwt.verify(token, "ZJGX1QL7ri6BGJWj3t");
+
     res.json({
       success: true,
       message: "User is logged in with ID: " + decoded.userId,
     });
-  } else {
-    res.json({
-      success: false,
-      message: "User is not logged in",
-    });
+  } catch (err) {
+    if (err.name === "TokenExpiredError") {
+      res.json({
+        success: false,
+        message: "Token has expired",
+      });
+    } else {
+      res.json({
+        success: false,
+        message: "Invalid token",
+      });
+    }
   }
 };
