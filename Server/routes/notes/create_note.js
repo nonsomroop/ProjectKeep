@@ -175,7 +175,6 @@ router.post("/", (req, res) => {
                     // All queries completed successfully
                     return res.status(200).json({
                       success: true,
-                      data: null,
                       message: "Note created successfully.",
                     });
                   })

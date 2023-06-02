@@ -49,7 +49,6 @@ function EditCard() {
       reminder: reminder.substring(0, 10),
       detail: detail,
     };
-    console.log(noteData);
 
     try {
       const response = await Axios.put(`/edit-note/${noteid}`, noteData);
@@ -65,10 +64,8 @@ function EditCard() {
   }, []);
 
   const fetchData = async () => {
-    console.log(noteid);
     Axios.get("/notedetail", { params: { noteid: noteid } })
       .then((res) => {
-        console.log(res.data[0]);
         let temp = res.data[0];
         setTitle(temp.title);
         setDescription(temp.description);
@@ -86,6 +83,8 @@ function EditCard() {
         console.log(err);
       });
   };
+ 
+  
   if (isLoading) {
     return (
       <Loading />

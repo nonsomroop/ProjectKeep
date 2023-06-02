@@ -42,7 +42,6 @@ module.exports = (req, res) => {
         res.json({
           success: true,
           message: "Login credential is correct",
-          user: rows[0],
         });
       } else {
         res.json({

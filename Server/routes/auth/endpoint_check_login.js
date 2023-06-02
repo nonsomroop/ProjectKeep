@@ -17,7 +17,7 @@ module.exports = (req, res) => {
 
     res.json({
       success: true,
-      message: "User is logged in with ID: " + decoded.userId,
+      message: "User is logged in"
     });
   } catch (err) {
     if (err.name === "TokenExpiredError") {
