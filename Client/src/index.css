@@ -21,6 +21,13 @@ body {
   --colorp3: #ffffff;
 }
 
+[data-theme="kmutt"] {
+  --colorp1: #383737;
+  --colorp2: #cccccc;
+  --colorp4: #FFAF7A;
+  --colorp3: #ffffff;
+}
+
 [data-theme="dg"] {
   --colorp1: #383737;
   --colorp2: #cccccc;

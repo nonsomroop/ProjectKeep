@@ -5,28 +5,47 @@ import CardList from "./CardList";
 import { useNavigate } from "react-router-dom";
 import Axios from "../AxiosInstance";
 
-function PastMemoryBox() {
+function PastMemoryBox({ data }) {
   const navigate = useNavigate();
-  const [data, setData] = useState([]);
+  const [timePass, setTimePass] = useState("");
+  const [filteredData, setFilteredData] = useState([]);
+  const [randomMemory, setRandomMemory] = useState(null); // Declare randomMemory variable
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    calculateTimePass();
+  }, [data]);
 
-  const fetchData = async () => {
-    Axios.get("/shownote")
-      .then((res) => {
-        console.log(res.data);
-        setData(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
+  const calculateTimePass = () => {
+    if (Object.keys(data).length > 0) {
+      const filtered = data.filter((item) => {
+        const createdDate = new Date(item.created_at);
+        const currentDate = new Date();
+        const year = createdDate.getFullYear();
+        console.log(year + " year is Here");
+        return year >= 2000;
       });
+
+      setFilteredData(filtered);
+
+      if (filtered.length > 0) {
+        const randomIndex = Math.floor(Math.random() * filtered.length);
+        const randomMemory = filtered[randomIndex];
+        const createdDate = new Date(randomMemory.created_at);
+        const currentDate = new Date();
+        const timeDiff = currentDate.getTime() - createdDate.getTime();
+        const daysPassed = Math.floor(timeDiff / (1000 * 3600 * 24));
+        setTimePass(`${daysPassed} days ago`);
+        setRandomMemory(randomMemory); // Assign randomMemory
+      } else {
+        setTimePass("");
+      }
+    }
   };
+
   return (
     <Box className="pastMemoryClass">
       <Box sx={{ width: "95%" }} ml={"5%"}>
-        <h2>Past mermory</h2>
+        <h2>Past memory</h2>
       </Box>
       <hr></hr>
       <Box
@@ -37,7 +56,12 @@ function PastMemoryBox() {
           marginBottom: "35px",
         }}
       >
-        <CardList data={data} />
+        {console.log(filteredData.length)}
+        {filteredData.length > 0 && timePass !== "" && randomMemory !== null ? (
+          <CardList data={randomMemory} />
+        ) : (
+          <></>
+        )}
       </Box>
       <h1
         style={{
@@ -45,7 +69,7 @@ function PastMemoryBox() {
           marginBottom: "40px",
         }}
       >
-        Timepass
+        {timePass}
       </h1>
     </Box>
   );

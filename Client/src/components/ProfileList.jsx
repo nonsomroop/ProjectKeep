@@ -1,7 +1,7 @@
 import { Box, Button, Container, Grid } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import "../styles/Profile.css";
-import profilePic from "../assets/gaby.jpg";
+import profilePic from "../assets/profilePic.jpg";
 import Axios from "../AxiosInstance";
 import { useNavigate } from "react-router-dom";
 
@@ -9,6 +9,8 @@ function ProfileList() {
   const [userData, setUserData] = useState({});
   const [name, setName] = useState("");
   const navigate = useNavigate();
+  const [bio, setBio] = useState("");
+  const [aboutme, setAboutme] = useState("This is my aboutme");
 
   useEffect(() => {
     fetchData();
@@ -20,6 +22,7 @@ function ProfileList() {
         console.log(res.data.data);
         setUserData(res.data.data);
         setName(res.data.data.username); 
+        setAboutme(res.data.data.about_me);
       })
       .catch((err) => {
         console.log(err);
@@ -27,10 +30,7 @@ function ProfileList() {
   };
 
   // const name = "Natthanon Somroop";
-  const bio =
-    "Life is a journey, not a destination. Enjoy the ride and cherish every moment.";
-  const aboutme =
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ut lectus ex. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; ";
+ 
   return (
     <Box className="profileListClass">
       <Grid container columns={24}>
@@ -60,9 +60,10 @@ function ProfileList() {
               className="profileListPic"
               style={{
                 borderRadius: "5px",
-                height: "100%",
-                width: "100%",
+                height: "80%",
+                width: "80%",
                 objectFit: "cover",
+                marginBottom: "70%"
               }}
             />
           </Box>

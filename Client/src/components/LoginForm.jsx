@@ -21,8 +21,6 @@ function LoginForm({onLogin}) {
       });
       if (response.data.success) {
         console.log("success");
-        // window.location.reload();
-        // navigate("/");
         onLogin();
       } else {
         setUsernameOrEmail("");
@@ -36,7 +34,7 @@ function LoginForm({onLogin}) {
       if (e instanceof AxiosError) {
         if (e.response) return console.log(e.message);
       }
-      return console.log(e.message);
+      return;
     }
   };
 

@@ -2,9 +2,9 @@ import React from 'react';
 import SideNav from '../components/SideNav';
 import { Box, Grid } from '@mui/material';
 import SettingBox from '../components/SettingBox';
-import ProfileSetting from '../components/ProfileSetting';
+import Password from '../components/Password';
 
-function Setting() {
+function PasswordChangePage( ) {
   return (
     <Box sx={{ display: "flex" }}>
       <Box sx={{ height: "" }}></Box>
@@ -26,16 +26,16 @@ function Setting() {
         <Grid item xs={8}>
         </Grid>
         {/* Box3 */}
-        <Grid item xs={28} sm={18} sx={{ height: "100vh" }}>
-          <ProfileSetting />
+        <Grid item xs={18} sx={{ height: "100vh" }}>
+          <Password  />
         </Grid>
         {/* Box4 */}
-        <Grid item xs={28} sm={10}>
+        <Grid item xs={10}>
           <SettingBox />
         </Grid>
       </Grid>
     </Box>
-  );
+  )
 }
 
-export default Setting;
+export default PasswordChangePage

@@ -6,34 +6,33 @@ function ThemeBox() {
   const colors = [
     { id: 1, label: "Dark Gray", code: "#383737" },
     { id: 2, label: "Pink", code: "#FFCCCC" },
+    { id: 3, label: "KMUTT", code: "#FF8A57" },
   ];
 
   const setDarkGrayTheme = () => {
     document.querySelector("body").setAttribute("data-theme", "dg");
     localStorage.setItem("selectedTheme", "dg");
-  }
+  };
 
   const setPinkTheme = () => {
     document.querySelector("body").setAttribute("data-theme", "pink");
     localStorage.setItem("selectedTheme", "pink");
-  }
+  };
+
+  const setKmuttTheme = () => {
+    document.querySelector("body").setAttribute("data-theme", "kmutt");
+    localStorage.setItem("selectedTheme", "kmutt");
+  };
 
   const handleClick = (color) => {
     if (color.code === "#383737") {
       setDarkGrayTheme();
     } else if (color.code === "#FFCCCC") {
       setPinkTheme();
+    } else if (color.code === "#FF8A57") {
+      setKmuttTheme();
     }
   };
-
-  useEffect(() => {
-    const selectedTheme = localStorage.getItem("selectedTheme");
-    if (selectedTheme === "dg") {
-      setDarkGrayTheme();
-    } else if (selectedTheme === "pink") {
-      setPinkTheme();
-    }
-  }, []);
 
   return (
     <Box className="profileSettingBox">
@@ -42,7 +41,12 @@ function ThemeBox() {
       </Box>
       <hr />
       {colors.map((color) => (
-        <Box key={color.id} ml={"7%"} display={"flex"} alignItems={"center"}>
+        <Box
+          key={color.id}
+          ml={"7%"}
+          display={"flex"}
+          alignItems={"center"}
+        >
           <Box
             sx={{
               width: "20px",

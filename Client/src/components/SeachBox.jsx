@@ -1,18 +1,14 @@
 import React, { useState } from "react";
 import {
   TextField,
-  FormControl,
-  InputLabel,
-  Select,
   Checkbox,
   FormControlLabel,
-  MenuItem,
   Box,
   Button,
 } from "@mui/material";
 import "../styles/SearchBox.css";
 
-const SearchBox = ({ onSearch }) => {
+const SearchBox = ({ setSearch }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [category, setCategory] = useState("");
   const [tag, setTag] = useState("");
@@ -21,16 +17,9 @@ const SearchBox = ({ onSearch }) => {
   const [midPriority, setMidPriority] = useState(false);
   const [lowPriority, setLowPriority] = useState(false);
   const [highPriority, setHighPriority] = useState(false);
-  const [tags, setTags] = useState(["Tag 1", "Tag 2", "Tag 3"]);
-
-  const handleAddTag = (newTag) => {
-    if (!tags.includes(newTag)) {
-      setTags([...tags, newTag]);
-    }
-  };
 
   function handleSearch() {
-    onSearch({
+    const searchParams = {
       searchTerm,
       category,
       tag,
@@ -39,7 +28,11 @@ const SearchBox = ({ onSearch }) => {
       midPriority,
       lowPriority,
       highPriority,
-    });
+    };
+
+    console.log(searchParams);
+
+    setSearch(searchParams);
   }
 
   return (
@@ -49,7 +42,7 @@ const SearchBox = ({ onSearch }) => {
       flexDirection={"column"}
       alignItems="center"
       mb={2}
-      sx={{width: {xs: "95%", md: "90%"}}}
+      sx={{ width: { xs: "95%", md: "90%" } }}
     >
       <Box sx={{ width: "95%" }} ml={"5%"}>
         <h2>Search</h2>
@@ -63,37 +56,29 @@ const SearchBox = ({ onSearch }) => {
         onChange={(event) => setSearchTerm(event.target.value)}
         margin="dense"
       />
-      <FormControl className="inputBar" variant="outlined" margin="dense">
-        <InputLabel id="category-label">Category</InputLabel>
-        <Select
-          labelId="category-label"
+      <Box display={"none"}>
+        <TextField
+          className="inputBar"
+          label="Category"
+          variant="outlined"
           value={category}
           onChange={(event) => setCategory(event.target.value)}
-          label="Category"
-        >
-          <MenuItem value="">All</MenuItem>
-          <MenuItem value="Category 1">Category 1</MenuItem>
-          <MenuItem value="Category 2">Category 2</MenuItem>
-          <MenuItem value="Category 3">Category 3</MenuItem>
-        </Select>
-      </FormControl>
-      <FormControl className="inputBar" variant="outlined" margin="dense">
-        <InputLabel id="tag-label">Tag</InputLabel>
-        <Select
-          labelId="tag-label"
+          margin="dense"
+        />
+        <TextField
+          className="inputBar"
+          label="Tag"
+          variant="outlined"
           value={tag}
           onChange={(event) => setTag(event.target.value)}
-          label="Tag"
-        >
-          <MenuItem value="">All</MenuItem>
-          <MenuItem value="Tag 1">Tag 1</MenuItem>
-          <MenuItem value="Tag 2">Tag 2</MenuItem>
-          <MenuItem value="Tag 3">Tag 3</MenuItem>
-        </Select>
-      </FormControl>
-      <Box display={"flex"} width={"80%"} sx={{
-        flexDirection: {xs: "column", md: "row"}
-      }}>
+          margin="dense"
+        />
+      </Box>
+      <Box
+        display={"flex"}
+        width={"80%"}
+        sx={{ flexDirection: { xs: "column", md: "row" } }}
+      >
         <TextField
           label="Start Date"
           type="date"
@@ -111,9 +96,9 @@ const SearchBox = ({ onSearch }) => {
           type="date"
           variant="outlined"
           value={endDate}
-          // onChange={(event) => setEndDate(event.target.value)}
+          onChange={(event) => setEndDate(event.target.value)}
           margin="dense"
-          sx={{ ml: {xs: "0", md: "4%"}}}
+          sx={{ ml: { xs: "0", md: "4%" } }}
           InputLabelProps={{
             shrink: true,
             placeholder: "",
@@ -154,7 +139,7 @@ const SearchBox = ({ onSearch }) => {
       </Box>
       <Button
         variant="contained"
-        // onClick={handleSearch}
+        onClick={handleSearch}
         sx={{
           bgcolor: "var(--colorp3)",
           color: "var(--colorp1)",

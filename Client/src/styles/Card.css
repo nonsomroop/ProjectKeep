@@ -1,8 +1,7 @@
 .cardImg {
     display: flex;
-    width: 270px;
-    height: 150px;
-    padding: 10px;
+    width: 100%;
+    height: 10px;
 }
 
 .cardDescr {

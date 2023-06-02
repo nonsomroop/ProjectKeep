@@ -6,13 +6,13 @@ import { NavLink } from "react-router-dom";
 function SettingBox() {
   const links = [
     { to: "/Profile", name: "Profile" },
-    { to: "/Password", name: "Password" },
+    { to: "/Setting/Password", name: "Password" },
     { to: "/Setting/Theme", name: "Theme" },
     { to: "/Signout", name: "Sign out" },
   ];
 
   return (
-    <Box className="settingBoxClass">
+    <Box className="settingBoxClass" sx={{width: {xs: "95%", sm: "85%"}}}>
       {links.map(({ to, name }, index) => (
         <NavLink
           key={to}

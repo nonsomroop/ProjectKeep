@@ -29,28 +29,35 @@ router.get("/notedetail", (req, res) => {
     if (err) {
       res.json(error);
     } else {
-      connection.query(sqlSelectTag, [id], (err, tagResults) => {
-        if (err) {
-          res.json(error);
-        } else {
-          console.log(tagResults)
-          const tags = tagResults.map((row) => row.name);
-          results.Tags = tags; // Add the tags array to the results object
-          
-          connection.query(sqlSelectCat, [id], (err, catResults) => {
-            if (err) {
-              res.json(error);
-            } else {
-              const categories = catResults.map((row) => row.name);
-              results.Categories = categories; // Add the categories array to the results object
-              console.log(results)
-              return res.json(results + categories);
-            }
-          });
-        }
-      });
+      if (results.length > 0) { // Check if results array is not empty
+        connection.query(sqlSelectTag, [id], (err, tagResults) => {
+          if (err) {
+            res.json(error);
+          } else {
+            console.log(tagResults)
+            const tags = tagResults.map((row) => row.name);
+            results[0].Tags = tags; // Add the tags array to the results object
+  
+            connection.query(sqlSelectCat, [id], (err, catResults) => {
+              if (err) {
+                res.json(error);
+              } else {
+                const categories = catResults.map((row) => row.name);
+                results[0].Categories = categories; // Add the categories array to the results object
+                console.log(results)
+                return res.json(results);
+              }
+            });
+          }
+        });
+      } else {
+        return res.status(404).json({
+          success: false,
+          data: null,
+          error: "Note not found.",
+        });
+      }
     }
   });
-});
-
+});  
 module.exports = router;

@@ -2,12 +2,9 @@ import { Box, Button } from "@mui/material";
 import React from "react";
 
 function Signout() {
-  const modalBox = {
-    borderRadius: "5px",
-  };
-
   function removeCookie(name) {
     document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+    localStorage.clear();
     window.location.reload();
   }
   return (
@@ -21,7 +18,7 @@ function Signout() {
         <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
           <Button
             variant="contained"
-            onClick={removeCookie("user")}
+            onClick={() => removeCookie("user")}
             sx={{
               flex: "end",
               fontSize: "15px",

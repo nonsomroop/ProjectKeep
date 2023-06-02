@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import SideNav from "../components/SideNav";
 import { Box, Grid } from "@mui/material";
 import ProfileBox from "../components/ProfileBox";
@@ -6,6 +6,7 @@ import DashboardList from "../components/DashboardList";
 import SearchBox from "../components/SeachBox";
 
 function DashBoardPage() {
+  const [search, setSearch] = useState({});
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -25,10 +26,10 @@ function DashBoardPage() {
           <ProfileBox />
         </Grid>
         <Grid item xs={28} sm={18} sx={{order: {xs: "2", sm: "1"}}} style={{ height: "100vh" }}>
-          <DashboardList />
+          <DashboardList search={search}/>
         </Grid>
         <Grid item  xs={28} sm={10} sx={{order: {xs: "1", sm: "2"}}}>
-          <SearchBox />
+          <SearchBox setSearch={setSearch} />
         </Grid>
       </Grid>
     </Box>

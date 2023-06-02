@@ -26,7 +26,7 @@ router.get("/showprofile", (req, res) => {
     });
   }
 
-  const sqlSelect = "SELECT first_name, last_name, profilePic, email, username FROM users WHERE id = ?";
+  const sqlSelect = "SELECT first_name, last_name, email, username, about_me FROM users WHERE id = ?";
   connection.query(sqlSelect, [userId], (err, results) => {
     if (err) {
       return res.status(500).json({

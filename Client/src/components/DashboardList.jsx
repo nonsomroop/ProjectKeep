@@ -5,7 +5,7 @@ import CardList from "./CardList";
 import { useNavigate } from "react-router-dom";
 import Axios from "../AxiosInstance";
 
-function DashboardList({ handleSearch }) {
+function DashboardList({ search }) {
   const navigate = useNavigate();
   const [data, setData] = useState([]);
 
@@ -13,14 +13,17 @@ function DashboardList({ handleSearch }) {
     fetchData();
   }, []);
 
+  const checkSearch = () => {
+    alert(search);
+    console.log(search);
+  };
   const fetchData = async () => {
     Axios.get("/shownote")
       .then((res) => {
-        console.log(res.data);
         setData(res.data);
       })
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   };
 
@@ -61,12 +64,47 @@ function DashboardList({ handleSearch }) {
             marginBottom: "30px",
           }}
         >
-          {data.map((item) => (
-            <Grid item xs={6} md={3} key={item.id}>
-              <CardList data={item} />
-            </Grid>
-          ))}
+          {!search
+            ? data.map((item) => (
+                <Grid item xs={6} md={3} key={item.id}>
+                  <CardList data={item} />
+                </Grid>
+              ))
+            : data
+                .filter((item) => {
+                  if (
+                    search.searchTerm &&
+                    !item.title.includes(search.searchTerm)
+                  ) {
+                    return false;
+                  }
+                  if (search.startDate && item.created_at < search.startDate) {
+                    return false;
+                  }
+                  if (search.endDate && item.created_at > search.endDate) {
+                    return false;
+                  }
+                  if (search.highPriority && item.priority !== 'High') {
+                    return false;
+                  }
+                  if (search.midPriority && item.priority !== 'Mid') {
+                    return false;
+                  }
+                  if (search.lowPriority && item.priority !== 'Low') {
+                    return false;
+                  }
+                  return true;
+                })
+                .map((item) => (
+                  <Grid item xs={6} md={3} key={item.id}>
+                    <CardList data={item} />
+                  </Grid>
+                ))}
         </Grid>
+        {/* <Box
+          sx={{ height: "100px", width: "200px", bgcolor: "red" }}
+          onClick={checkSearch}
+        ></Box> */}
       </Box>
     </div>
   );

@@ -1,7 +1,6 @@
 import { Box, Card, CardMedia } from "@mui/material";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import profilePic from "../assets/profilePic.jpg";
 import "../styles/Card.css";
 
 function CardList({ data }) {
@@ -19,7 +18,17 @@ function CardList({ data }) {
         className="picture"
         sx={{ display: "flex", justifyContent: "center" }}
       >
-        <CardMedia className="cardImg" image={profilePic} title="Card image" />
+        <Box
+          className="cardImg"
+          sx={{
+            bgcolor:
+              priority === "Low"
+                ? "#d3d3d3"
+                : priority === "Mid"
+                ? "#888888"
+                : "black",
+          }}
+        ></Box>
       </Box>
       <Box className="cardText">
         <h2 className="cardTitle">{title}</h2>

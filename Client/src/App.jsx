@@ -16,6 +16,8 @@ import Axios from "./AxiosInstance";
 import SignoutPage from "./pages/SignoutPage";
 import ShowNotePage from "./pages/ShowNotePage";
 import EditNotePage from "./pages/EditNotePage";
+import PasswordChangePage from "./pages/PasswordChangePage";
+import Loading from "./components/Loading";
 
 function App() {
   const [isLogin, setIsLogin] = useState(false);
@@ -23,28 +25,41 @@ function App() {
   const navigate = useNavigate();
   useEffect(() => {
     fetchData();
+    const theme = localStorage.getItem("selectedTheme");
+    if (theme == "dg") {
+      document.querySelector("body").setAttribute("data-theme", "dg");
+    } else if (theme == "pink") {
+      document.querySelector("body").setAttribute("data-theme", "pink");
+    } else if (theme == "kmutt") {
+      document.querySelector("body").setAttribute("data-theme", "kmutt");
+    } else {
+      document.querySelector("body").setAttribute("data-theme", "dg");
+      document.querySelector("body").setAttribute("data-theme", "dg");
+    }
   }, []);
-
 
   const handleLogin = async () => {
     setIsLogin(true);
-    navigate("/"); 
+    navigate("/");
   };
 
   const fetchData = async () => {
     Axios.get("/check")
       .then((res) => {
-        console.log(res);
         setIsLogin(res.data.success);
         setIsLoading(false);
       })
       .catch((err) => {
-        console.log(error);
+        console.error(err);
       });
   };
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div height={"100vh"}>
+        <Loading />;
+      </div>
+    );
   }
   return (
     <div className="App">
@@ -58,6 +73,7 @@ function App() {
           <Route path="/Setting" element={<Setting />} />
           <Route path="/Profile" element={<ProfilePage />} />
           <Route path="/Setting/Theme" element={<ThemePage />} />
+          <Route path="/Setting/Password" element={<PasswordChangePage />} />
           <Route path="/Create" element={<CreateNotePage />} />
           <Route path="/Edit/:noteid" element={<EditNotePage />} />
           <Route path="/Note/:noteid" element={<ShowNotePage />} />
@@ -67,7 +83,11 @@ function App() {
         </Routes>
       ) : (
         <Routes>
-          <Route exect path="/Login" element={<LoginPage onLogin={handleLogin} />} />
+          <Route
+            exect
+            path="/Login"
+            element={<LoginPage onLogin={handleLogin} />}
+          />
           <Route path="/Register" element={<RegisterPage />} />
           <Route path="/*" element={<Navigate to={"/Login"} replace />} />
         </Routes>

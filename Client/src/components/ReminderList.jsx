@@ -2,7 +2,21 @@ import { Box, Button, Grid } from "@mui/material";
 import React from "react";
 import "../styles/Reminder.css";
 import ReminderCard from "./ReminderCard";
-function ReminderList() {
+import { useNavigate } from "react-router-dom";
+function ReminderList({ data }) {4
+  const navigate = useNavigate();
+  function formatDate(date) {
+    const year = date.getFullYear().toString().padStart(4, "0");
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const day = date.getDate().toString().padStart(2, "0");
+    
+    return `${year}-${month}-${day}`;
+  }
+  
+  function getTodayDate() {
+    const today = new Date();
+    return formatDate(today);
+  }
   return (
     <Box className="reminderListBox">
       <Box ml={"5%"}>
@@ -21,23 +35,26 @@ function ReminderList() {
           marginBottom: "25px",
         }}
       >
-        <Grid item sm={6} md={3}>
-          <ReminderCard />
-        </Grid>
-        <Grid item sm={6} md={3}>
-          <ReminderCard />
-        </Grid>
-        <Grid item sm={6} md={3}>
-          <ReminderCard />
-        </Grid>
-        <Grid item sm={6} md={3}>
-          <ReminderCard />
-        </Grid>
+        {data
+          .filter((item) => {
+            let today = getTodayDate();
+            if (item.reminder < today) {
+              return false;
+            } 
+            return true;
+          })
+          .map((item) => (
+            <Grid item sm={6} md={3} key={item.id}>
+              <ReminderCard info={item} />
+            </Grid>
+          ))}
+
+        {console.log(data[0].id + "Here")}
       </Grid>
       <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
         <Button
           variant="contained"
-          // onClick={handleSearch}
+          onClick={() => navigate("/Create")}
           sx={{
             fontSize: "16px",
             width: "200px",

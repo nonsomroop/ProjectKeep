@@ -10,10 +10,8 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import "../styles/ShowList.css";
-import ImageUploadBox from "./ImageUploadBox";
 import Axios from "../AxiosInstance";
 import { useNavigate } from "react-router-dom";
-
 
 function CreateCard() {
   const [title, setTitle] = useState("");
@@ -46,22 +44,19 @@ function CreateCard() {
       createDate: createDate,
       selectedPriority: selectedPriority,
       reminder: reminder,
-      detail: detail,
+      detail: detail
     };
-    console.log(noteData);
-  
-  
+
     try {
       const response = await Axios.post("/create-note", noteData);
       console.log("Note created:", response.data);
-      navigate("/dashboard");
+      navigate(-1);
     } catch (error) {
       // Handle errors
       console.log("Hello");
       console.error("Error creating note:", error);
     }
   };
-  
 
   const handleInputTagChange = (event) => {
     setInputTagValue(event.target.value);
@@ -88,6 +83,7 @@ function CreateCard() {
       }
     }
   };
+
 
   const handleTagDelete = (tagToDelete) => {
     setTags(tags.filter((tag) => tag !== tagToDelete));
@@ -124,7 +120,7 @@ function CreateCard() {
         <Grid
           item
           xs={12}
-          md={6}
+          md={12}
           ml={"4%"}
           mr={"4%"}
           sx={{ order: { xs: "2", md: "1" } }}
@@ -350,19 +346,7 @@ function CreateCard() {
             </Grid>
           </Grid>
         </Grid>
-        <Grid
-          item
-          xs={12}
-          md={5}
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            order: { xs: "1", md: "2" },
-          }}
-        >
-          <ImageUploadBox />
-        </Grid>
+        {/* Image */}
       </Grid>
       <Box className="details" mt={"40px"} ml={"4%"} mr={"4%"}>
         <h4
@@ -372,7 +356,12 @@ function CreateCard() {
         >
           Details
         </h4>
-        <TextField fullWidth multiline rows={3} onChange={(e) => setDetail(e.target.value)}></TextField>
+        <TextField
+          fullWidth
+          multiline
+          rows={3}
+          onChange={(e) => setDetail(e.target.value)}
+        ></TextField>
       </Box>
       <Box display={"flex"} justifyContent={"flex-end"} mt={"20px"} mr={"3%"}>
         <h4

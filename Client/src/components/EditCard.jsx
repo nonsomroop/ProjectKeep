@@ -10,9 +10,9 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import "../styles/ShowList.css";
-import ImageUploadBox from "./ImageUploadBox";
 import Axios from "../AxiosInstance";
 import { useNavigate, useParams } from "react-router-dom";
+import Loading from "./Loading";
 
 function EditCard() {
   const [title, setTitle] = useState("");
@@ -24,13 +24,13 @@ function EditCard() {
   const [inputTagValue, setInputTagValue] = useState("");
   const [inputCategoryValue, setInputCategoryValue] = useState("");
   const [createDate, setCreateDate] = useState("");
-  const [selectedPriority, setSelectedPriority] = useState("low");
+  const [selectedPriority, setSelectedPriority] = useState("Low");
   const [reminder, setReminder] = useState("");
   const [detail, setDetail] = useState("");
   const [titleError, setTitleError] = useState("");
   const [isLoading, setIsLoading] = useState(true);
-  const { noteid } = useParams();
-  const navigate = useNavigate();
+  const { noteid } = useParams("");
+  const navigate = useNavigate("");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -52,13 +52,11 @@ function EditCard() {
     console.log(noteData);
 
     try {
-      const response = await Axios.post("/create-note", noteData);
-      console.log("Note created:", response.data);
-      navigate("/dashboard");
+      const response = await Axios.put(`/edit-note/${noteid}`, noteData);
+      console.log("Note Edited:", response.data);
+      navigate(`/note/${noteid}`);
     } catch (error) {
-      // Handle errors
-      console.log("Hello");
-      console.error("Error creating note:", error);
+      console.error("Error edting note:", error);
     }
   };
 
@@ -81,6 +79,8 @@ function EditCard() {
         setDetail(temp.content);
         setReminder(temp.reminder);
         setIsLoading(false);
+        setTags(temp.Tags);
+        setCategories(temp.Categories);
       })
       .catch((err) => {
         console.log(err);
@@ -88,16 +88,7 @@ function EditCard() {
   };
   if (isLoading) {
     return (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100%F",
-        }}
-      >
-        Loading...
-      </div>
+      <Loading />
     );
   }
   const handleInputTagChange = (event) => {
@@ -162,7 +153,6 @@ function EditCard() {
         <Grid
           item
           xs={12}
-          md={6}
           ml={"4%"}
           mr={"4%"}
           sx={{ order: { xs: "2", md: "1" } }}
@@ -391,19 +381,6 @@ function EditCard() {
               <Grid item xs={12}></Grid>
             </Grid>
           </Grid>
-        </Grid>
-        <Grid
-          item
-          xs={12}
-          md={5}
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            order: { xs: "1", md: "2" },
-          }}
-        >
-          <ImageUploadBox />
         </Grid>
       </Grid>
       <Box className="details" mt={"40px"} ml={"4%"} mr={"4%"}>
