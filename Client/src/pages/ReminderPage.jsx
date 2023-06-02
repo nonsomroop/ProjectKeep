@@ -48,7 +48,7 @@ function ReminderPage() {
           <ProfileBox />
         </Grid>
         {/* Box3 */}
-        <Grid item xs={18} sm={15} sx={{ height: "100vh" }}>
+        <Grid item xs={28} sm={15} >
           {isLoading ? (
             <Box
               display="flex"
@@ -63,7 +63,7 @@ function ReminderPage() {
           )}
         </Grid>
         {/* Box4 */}
-        <Grid item xs={10} sm={13}>
+        <Grid item xs={28} sm={13}>
           <PastMemoryBox data={data} />
         </Grid>
       </Grid>

@@ -43,7 +43,7 @@ function PastMemoryBox({ data }) {
   };
 
   return (
-    <Box className="pastMemoryClass">
+    <Box className="pastMemoryClass" sx={{width: {xs: "95%", sm: "85%"}, marginLeft: {xs: "3%", sm: "5%"}}}>
       <Box sx={{ width: "95%" }} ml={"5%"}>
         <h2>Past memory</h2>
       </Box>

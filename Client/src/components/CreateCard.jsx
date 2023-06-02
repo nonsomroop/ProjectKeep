@@ -52,8 +52,6 @@ function CreateCard() {
       console.log("Note created:", response.data);
       navigate(-1);
     } catch (error) {
-      // Handle errors
-      console.log("Hello");
       console.error("Error creating note:", error);
     }
   };
