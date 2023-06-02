@@ -48,8 +48,6 @@ function ReminderList({ data }) {4
               <ReminderCard info={item} />
             </Grid>
           ))}
-
-        {console.log(data[0].id + "Here")}
       </Grid>
       <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
         <Button

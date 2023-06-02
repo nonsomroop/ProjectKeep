@@ -15,6 +15,14 @@ The website is a virtual notepad for users to create, manage, and modify their p
 | `Past Memories` | view notes from the past |
 | `Theme Change` | change the theme of the website |
 
+## Stack Technologies
+    - Frontend: React.js
+    - Backend: Node.js with Express.js
+    - Database: MariaDB/MySQL2
+
+## Database Schema
+![Schema](Server/database/schema.png)
+
 ## To run the frontend and backend
 Frontend
 ```bash
